@@ -21,7 +21,6 @@
   <p>4. Console will show: "Analytics fired" + "Marketing fired"</p>
   <p><button onclick="CookieConsent.show()">Change preferences</button></p>
   <p><button onclick="localStorage.clear();location.reload()">Reset Test</button></p>
-  <p><button onclick="CookieConsent.show()">Change preferences</button></p>
 
   <h2>Install</h2>
   <pre>&lt;script src="cookie-consent.js"
@@ -34,7 +33,7 @@
   <pre>CookieConsent.hasConsent('analytics') // true/false
 CookieConsent.show() // reopen banner
 window.addEventListener('cc:consent', e => console.log(e.detail))</pre>
-
+    <p>Having issues? Disable tracker blocking for this site to enable analytics.</p>
   <!-- Blocked scripts for testing -->
   <script type="text/plain" data-category="analytics">
     console.log('Analytics fired - GA would init here');
@@ -43,12 +42,27 @@ window.addEventListener('cc:consent', e => console.log(e.detail))</pre>
   <script type="text/plain" data-category="marketing">
     console.log('Marketing fired - FB Pixel would init here');
   </script>
-<!-- Google Analytics -->
-<script type="text/plain" data-category="analytics" data-src="https://www.googletagmanager.com/gtag/js?id=G-XXXX"></script>
 
+<!-- Google Analytics -->
+<script type="text/plain" data-category="analytics">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ABC1234XYZ');
+</script>
+<script type="text/plain" data-category="analytics" data-src="https://www.googletagmanager.com/gtag/js?id=G-ABC1234XYZ"></script>
 <!-- FB Pixel -->
 <script type="text/plain" data-category="marketing">
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod? ... 
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '123456789012345');
+fbq('track', 'PageView');
 </script>
 
 <!-- Save language choice -->
@@ -56,8 +70,6 @@ window.addEventListener('cc:consent', e => console.log(e.detail))</pre>
   localStorage.setItem('lang', 'en');
 </script>
 
-<!-- Login/session - no tag needed, always runs -->
-<script src="/js/auth.js"></script>
   <!-- Init consent -->
   <script src="cookie-consent.js" data-config='{"lang":"auto"}'></script>
 </body>
