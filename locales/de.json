@@ -1,0 +1,29 @@
+{
+  "banner": {
+    "description": "Wir verwenden Cookies zur Analyse, für Einstellungen und personalisierte Inhalte. Sie entscheiden, was wir nutzen.",
+    "acceptAll": "Alle akzeptieren",
+    "rejectAll": "Nur notwendige",
+    "manage": "Anpassen"
+  },
+  "modal": {
+    "save": "Einstellungen speichern"
+  },
+  "categories": {
+    "necessary": {
+      "name": "Notwendig",
+      "description": "Für die Funktion der Website erforderlich. Immer aktiv."
+    },
+    "analytics": {
+      "name": "Analyse",
+      "description": "Helfen uns zu verstehen, wie Besucher die Website nutzen."
+    },
+    "marketing": {
+      "name": "Marketing",
+      "description": "Zur Anzeige relevanter Werbung."
+    },
+    "preferences": {
+      "name": "Einstellungen",
+      "description": "Speichert Ihre Einstellungen wie Sprache und Region."
+    }
+  }
+}

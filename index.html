@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cookie Consent v0.1.0 Demo</title>
+  <style>
+    body{font:16px/1.6 system-ui;max-width:800px;margin:40px auto;padding:0 20px}
+    code{background:#f4f4f4;padding:2px 6px;border-radius:3px}
+    pre{background:#f4f4f4;padding:16px;overflow:auto}
+  </style>
+</head>
+<body>
+  <h1>Cookie Consent v0.1.0</h1>
+  <p>Framework-agnostic, 4.5kb, actually blocks scripts. MIT licensed.</p>
+
+  <h2>Test It</h2>
+  <p>1. Open DevTools Console</p>
+  <p>2. You should see no logs yet</p>
+  <p>3. Click "Accept all" below</p>
+  <p>4. Console will show: "Analytics fired" + "Marketing fired"</p>
+  <p><button onclick="CookieConsent.show()">Change preferences</button></p>
+  <p><button onclick="localStorage.clear();location.reload()">Reset Test</button></p>
+  <p><button onclick="CookieConsent.show()">Change preferences</button></p>
+
+  <h2>Install</h2>
+  <pre>&lt;script src="cookie-consent.js"
+        data-config='{"lang":"auto","localesPath":"./locales/"}'&gt;&lt;/script&gt;
+
+  &lt;!-- Wrap scripts you want to block --&gt;
+  &lt;script type="text/plain" data-category="analytics" data-src="gtag.js"&gt;&lt;/script&gt;</pre>
+
+  <h2>JS API</h2>
+  <pre>CookieConsent.hasConsent('analytics') // true/false
+CookieConsent.show() // reopen banner
+window.addEventListener('cc:consent', e => console.log(e.detail))</pre>
+
+  <!-- Blocked scripts for testing -->
+  <script type="text/plain" data-category="analytics">
+    console.log('Analytics fired - GA would init here');
+  </script>
+
+  <script type="text/plain" data-category="marketing">
+    console.log('Marketing fired - FB Pixel would init here');
+  </script>
+<!-- Google Analytics -->
+<script type="text/plain" data-category="analytics" data-src="https://www.googletagmanager.com/gtag/js?id=G-XXXX"></script>
+
+<!-- FB Pixel -->
+<script type="text/plain" data-category="marketing">
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod? ... 
+</script>
+
+<!-- Save language choice -->
+<script type="text/plain" data-category="preferences">
+  localStorage.setItem('lang', 'en');
+</script>
+
+<!-- Login/session - no tag needed, always runs -->
+<script src="/js/auth.js"></script>
+  <!-- Init consent -->
+  <script src="cookie-consent.js" data-config='{"lang":"auto"}'></script>
+</body>
+</html>
